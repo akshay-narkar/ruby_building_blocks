@@ -23,8 +23,6 @@ Metrics/BlockLength:
   ExcludedMethods: ["describe"]
   Max: 30
 
-Style/BlockComments:
-  Enabled: False
 Style/Documentation:
   Enabled: false
 Style/ClassAndModuleChildren:
