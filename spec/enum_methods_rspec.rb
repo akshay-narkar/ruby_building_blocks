@@ -138,3 +138,55 @@ describe Enumerable do
       end
     end
   end
+
+    describe '#my_count Goes through each element of the structure. Returns the count based on contents
+  that satisfy the conditons' do
+    context 'when block is given' do
+      it 'when array is passed & argument is given' do
+        expect(array.my_count(2) { |x| x > 2 }).to eq(1)
+      end
+      it 'when hash is passed & argument is not given' do
+        expect(hash1.my_count { |_x, y| y > 20 }).to eq(2)
+      end
+      it 'array is passed with block requirement as Numeric & argument is not given' do
+        expect(array.my_count { |x| x.is_a?(Numeric) }).to eq(array.count { |x| x.is_a?(Numeric) })
+      end
+    end
+ 
+    context ' when block is not given' do
+      it 'when argument is given' do
+        expect(array.my_count(Integer)).to eq(array.count(Integer))
+      end
+ 
+      it 'when argument is not given' do
+        expect(array2.my_count).to eq(2)
+      end
+    end
+  end
+ 
+  describe '#my_map Goes through each element of the structure. Returns a new array
+    based on block calculations' do
+    context 'when proc is not given' do
+      it 'when array is passed & block is given' do
+        expect(array.my_map { |value| [value + 20] })
+          .to eq(array.map { |value| [value + 20] })
+      end
+      it 'when hash is passed & block is given' do
+        expect(hash1.my_map { |key, value| [key.upcase, value + 20] })
+          .to eq(hash1.map { |key, value| [key.upcase, value + 20] })
+      end
+      it 'block is not given' do
+        expect(array.my_map).to be_kind_of(Enumerator)
+      end
+    end
+ 
+    context 'when proc is given' do
+      my_proc = proc { |x| x**3 }
+      it 'No block only proc' do
+        expect(array.my_map(my_proc)).to eq(array.map(&my_proc))
+      end
+      it 'Proc and block given' do
+        expect(array.my_map(my_proc) { |x| x**2 }).to eq(array.map(&my_proc))
+      end
+    end
+  end
