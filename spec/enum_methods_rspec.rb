@@ -139,8 +139,8 @@ describe Enumerable do
     end
   end
 
-    describe '#my_count Goes through each element of the structure. Returns the count based on contents
-  that satisfy the conditons' do
+  describe '#my_count Goes through each element of the structure. Returns the count based on contents
+    that satisfy the conditons' do
     context 'when block is given' do
       it 'when array is passed & argument is given' do
         expect(array.my_count(2) { |x| x > 2 }).to eq(1)
@@ -152,18 +152,18 @@ describe Enumerable do
         expect(array.my_count { |x| x.is_a?(Numeric) }).to eq(array.count { |x| x.is_a?(Numeric) })
       end
     end
- 
+
     context ' when block is not given' do
       it 'when argument is given' do
         expect(array.my_count(Integer)).to eq(array.count(Integer))
       end
- 
+
       it 'when argument is not given' do
         expect(array2.my_count).to eq(2)
       end
     end
   end
- 
+
   describe '#my_map Goes through each element of the structure. Returns a new array
     based on block calculations' do
     context 'when proc is not given' do
@@ -179,7 +179,7 @@ describe Enumerable do
         expect(array.my_map).to be_kind_of(Enumerator)
       end
     end
- 
+
     context 'when proc is given' do
       my_proc = proc { |x| x**3 }
       it 'No block only proc' do
@@ -190,3 +190,30 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_inject Goes through each element of the structure. Returns a new array
+    based on block calculations' do
+    it 'when block is not given & argument is nil' do
+      expect(array.my_inject).to raise_error(LocalJumpError)
+    end
+    it 'when just the symbol is passed ' do
+      expect(array.my_inject(:+)).to eq(array.inject(:+))
+    end
+    it 'when symbol is passed with argument' do
+      expect(array.my_inject(1, :+)).to eq(array.inject(1, :+))
+    end
+    context 'when block is passed with argument'
+    it do
+      expect(array.my_inject(1) { |product, n| product + n })
+        .to eq(array.inject(1) { |product, n| product + n })
+    end
+    it do
+      expect(animals.my_inject do |memo, word|
+        memo.length > word.length ? memo : word
+      end)
+        .to eq(animals.inject do |memo, word|
+                 memo.length > word.length ? memo : word
+               end)
+    end
+  end
+end
