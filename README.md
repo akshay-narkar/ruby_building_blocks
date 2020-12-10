@@ -30,6 +30,20 @@ Prerequisites
     Text Editor (VSCode is suggested.)
     Ruby
 
+## Rspec Tests
+
+To do the Rspec tests follow the next steps:
+
+- Open your terminal.
+
+- Navigate to your folder's location.
+
+- Navigate to spec folder.
+
+- Type "rspec enum_methods_rspec.rb". 
+
+![screenshot](./Screenshot.jpg)
+
 ## Assignment Link
 
 [Assignment](https://repl.it/@akshay125555/EnumerableMethodsMicroverse)
