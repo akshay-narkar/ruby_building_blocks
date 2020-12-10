@@ -34,12 +34,12 @@ describe Enumerable do
     it 'when block is given' do
       expect(array.my_select { |x| x > 2 }).to eq(array.select { |x| x > 2 })
     end
- 
+
     it 'when block is not given' do
       expect(array.my_select).to be_kind_of(Enumerator)
     end
   end
- 
+
   describe '#my_all? Goes through each element of the structure. Returns true or false based on condition provided if
   all contents satisfy the conditons' do
     context 'when block is given' do
@@ -56,18 +56,85 @@ describe Enumerable do
         expect(array1.my_all? { |x| x.is_a?(Numeric) }).to be_falsy
       end
     end
- 
+
     context ' when block is not given' do
       it 'when block is not given and argument is given' do
         expect(array.my_all?(Integer)).to be_truthy
       end
- 
+
       it 'when block is not given and argument is not given' do
         expect(array.my_all?).to be_truthy
       end
- 
+
       it 'when block is not given and argument is not given & array with false is passed' do
         expect(array1.my_all?).to be_falsy
+      end
+    end
+  end
+
+  describe '#my_any? Goes through each element of the structure. Returns true based on condition provided if
+  any content satisfy the conditons' do
+    context 'when block is given' do
+      it 'when array is passed' do
+        expect(array.my_any? { |x| x > 2 }).to be_truthy
+      end
+      it 'when hash is passed' do
+        expect(hash1.my_any? { |_x, y| y > 20 }).to be_truthy
+      end
+      it 'array is passed with block requirement as Numeric ' do
+        expect(array.my_any? { |x| x.is_a?(Numeric) }).to be_truthy
+      end
+      it 'array is passed with block requirement as Numeric ' do
+        expect(array.my_any? { |x| x.is_a?(String) }).to be_falsy
+      end
+      it 'array1 is passed with block requirement as Numeric ' do
+        expect(array1.my_any? { |x| x.is_a?(Numeric) }).to be_truthy
+      end
+    end
+
+    context ' when block is not given' do
+      it 'when block is not given and argument is given' do
+        expect(array.my_any?(Integer)).to be_truthy
+      end
+
+      it 'when block is not given and argument is not given' do
+        expect(array.my_any?).to be_truthy
+      end
+
+      it 'when block is not given and argument is not given & array with false is passed' do
+        expect(array1.my_any?).to be_truthy
+      end
+    end
+  end
+
+  describe '#my_none? Goes through each element of the structure. Returns true or false based on condition provided if
+  all contents satisfy the conditons' do
+    context 'when block is given' do
+      it 'when array is passed' do
+        expect(array.my_none? { |x| x > 2 }).to be_falsy
+      end
+      it 'when hash is passed' do
+        expect(hash1.my_none? { |_x, y| y > 20 }).to be_falsy
+      end
+      it 'array is passed with block requirement as Numeric ' do
+        expect(array.my_none? { |x| x.is_a?(Numeric) }).to be_falsy
+      end
+      it 'array1 is passed with block requirement as Numeric ' do
+        expect(array2.my_none? { |x| x.is_a?(Numeric) }).to be_truthy
+      end
+    end
+
+    context ' when block is not given' do
+      it 'when block is not given and argument is given' do
+        expect(array.my_none?(Integer)).to be_falsy
+      end
+
+      it 'when block is not given and argument is not given' do
+        expect(array.my_none?).to be_falsy
+      end
+
+      it 'when block is not given and argument is not given & array with all false is passed' do
+        expect(array2.my_none?).to be_truthy
       end
     end
   end
