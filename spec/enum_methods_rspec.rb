@@ -196,7 +196,7 @@ describe Enumerable do
       expect { array.my_inject }.to raise_error(LocalJumpError)
     end
     it 'when just the symbol is passed ' do
-      expect { array.my_inject(:+) }.to eq(array.inject(:+))
+      expect(array.my_inject(:+)).to eq(array.inject(:+))
     end
     it 'when symbol is passed with argument' do
       expect(array.my_inject(1, :+)).to eq(array.inject(1, :+))
