@@ -1,4 +1,3 @@
-print 'hello'
 require_relative '../enum_methods'
 describe Enumerable do
   let(:array) { [1, 2, 3, 4, 5] }
@@ -194,10 +193,10 @@ describe Enumerable do
   describe '#my_inject Goes through each element of the structure. Returns a new array
     based on block calculations' do
     it 'when block is not given & argument is nil' do
-      expect(array.my_inject).to raise_error(LocalJumpError)
+      expect { array.my_inject }.to raise_error(LocalJumpError)
     end
     it 'when just the symbol is passed ' do
-      expect(array.my_inject(:+)).to eq(array.inject(:+))
+      expect { array.my_inject(:+) }.to eq(array.inject(:+))
     end
     it 'when symbol is passed with argument' do
       expect(array.my_inject(1, :+)).to eq(array.inject(1, :+))
